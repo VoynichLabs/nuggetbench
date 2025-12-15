@@ -264,6 +264,9 @@ def _write_markdown(path: Path, content: str) -> None:
 
 
 def generate_table_files(
+    do_accuracy: bool = True,
+    do_models: bool = True,
+    do_answers: bool = True,
     log_dir: Path = Path("logs"),
     images_dir: Path = Path("images"),
     output_dir: Path = Path("tables"),
@@ -292,20 +295,23 @@ def generate_table_files(
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    scoreboard_path = output_dir / "model-accuracy.md"
-    _write_markdown(scoreboard_path, _build_scoreboard_content(list(summaries.values())))
+    if do_accuracy:
+        scoreboard_path = output_dir / "model-accuracy.md"
+        _write_markdown(scoreboard_path, _build_scoreboard_content(list(summaries.values())))
 
-    for model_name, samples in model_samples.items():
-        model_path = output_dir / f"{_slugify(model_name)}.md"
-        ordered_samples = sorted(samples, key=lambda sample: _filename_sort_key(sample.filename))
-        _write_markdown(model_path, _build_model_table_content(model_name, ordered_samples, output_dir))
+    if do_models:
+        for model_name, samples in model_samples.items():
+            model_path = output_dir / f"{_slugify(model_name)}.md"
+            ordered_samples = sorted(samples, key=lambda sample: _filename_sort_key(sample.filename))
+            _write_markdown(model_path, _build_model_table_content(model_name, ordered_samples, output_dir))
 
-    study_path = output_dir / "answers.md"
-    ordered_study_samples = sorted(study_samples.values(), key=lambda sample: sample.filename.lower())
-    _write_markdown(
-        study_path,
-        _build_study_table_content(ordered_study_samples, output_dir),
-    )
+    if do_answers:
+        study_path = output_dir / "answers.md"
+        ordered_study_samples = sorted(study_samples.values(), key=lambda sample: sample.filename.lower())
+        _write_markdown(
+            study_path,
+            _build_study_table_content(ordered_study_samples, output_dir),
+        )
 def _filename_sort_key(filename: str) -> tuple:
     parts = re.findall(r"\d+|\D+", filename.lower())
     key: list[object] = []
