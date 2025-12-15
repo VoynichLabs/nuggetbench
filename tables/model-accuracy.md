@@ -1,6 +1,11 @@
 # Model Accuracy
 
-| Model Name | Accuracy |
-| --- | --- |
-| openrouter/google/gemini-2.5-flash | 12/18 |
-| openrouter/openai/gpt-5.2 | 5/18 |
+<table>
+  <thead>
+    <tr><th>Model Name</th><th>Accuracy</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>openrouter/google/gemini-2.5-flash</td><td>12/18</td></tr>
+    <tr><td>openrouter/openai/gpt-5.2</td><td>5/18</td></tr>
+  </tbody>
+</table>

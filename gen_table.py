@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from html import escape
 import os
 from pathlib import Path
 from typing import Sequence
@@ -133,25 +134,44 @@ def _collect_sample_results(log: EvalLog, images_dir: Path) -> tuple[ModelSummar
     return ModelSummary(model_name, num_correct, total_samples), sample_results
 
 
-def _markdown_escape_cell(value: str) -> str:
-    return value.replace("\\", "\\\\").replace("|", "\\|").replace("\n", "<br>").strip()
+def _escape_html_text(value: str) -> str:
+    # Preserve intentional line breaks inside table cells.
+    return escape(value or "", quote=False).replace("\n", "<br>").strip()
+
+
+def _escape_html_attr(value: str) -> str:
+    return escape(value or "", quote=True)
 
 
 def _format_targets(targets: Sequence[str]) -> str:
-    targets_text = ", ".join(targets)
+    targets_text = _escape_html_text(", ".join(targets))
     return (
-        "<details>\n"
-        "  <summary>Click to see answer</summary>\n"
-        f"  {targets_text}\n"
+        "<details>"
+        "<summary>Click to see answer</summary>"
+        f"<div>{targets_text}</div>"
         "</details>"
     )
 
 
 def _render_table(headers: Sequence[str], rows: Sequence[Sequence[str]]) -> str:
-    header_line = "| " + " | ".join(headers) + " |"
-    separator = "| " + " | ".join("---" for _ in headers) + " |"
-    row_lines = ["| " + " | ".join(row) + " |" for row in rows]
-    return "\n".join([header_line, separator, *row_lines])
+    header_cells = "".join(f"<th>{_escape_html_text(str(header))}</th>" for header in headers)
+    body_rows = []
+    for row in rows:
+        cells = "".join(f"<td>{cell}</td>" for cell in row)
+        body_rows.append(f"    <tr>{cells}</tr>")
+    body = "\n".join(body_rows)
+    if body:
+        body += "\n"
+    return (
+        "<table>\n"
+        "  <thead>\n"
+        f"    <tr>{header_cells}</tr>\n"
+        "  </thead>\n"
+        "  <tbody>\n"
+        f"{body}"
+        "  </tbody>\n"
+        "</table>"
+    )
 
 
 def _slugify(name: str) -> str:
@@ -172,8 +192,8 @@ def _build_scoreboard_content(summaries: Sequence[ModelSummary]) -> str:
 
     rows = [
         (
-            summary.name,
-            f"{summary.num_correct}/{summary.total_samples}",
+            _escape_html_text(summary.name),
+            _escape_html_text(f"{summary.num_correct}/{summary.total_samples}"),
         )
         for summary in sorted_summaries
     ]
@@ -190,8 +210,10 @@ def _build_model_table_content(
     rows: list[tuple[str, str, str]] = []
     for sample in samples:
         image_link = _relpath(sample.image_path, start=output_dir)
-        filename_cell = f"[{_markdown_escape_cell(sample.filename)}]({image_link})"
-        answer_cell = _markdown_escape_cell(sample.completion)
+        filename_cell = (
+            f'<a href="{_escape_html_attr(image_link)}">{_escape_html_text(sample.filename)}</a>'
+        )
+        answer_cell = _escape_html_text(sample.completion)
         correctness_cell = "✅" if sample.is_correct else "❌"
         rows.append((filename_cell, answer_cell, correctness_cell))
 
@@ -202,7 +224,9 @@ def _build_model_table_content(
 def _build_study_table_content(samples: Sequence[SampleResult], output_dir: Path) -> str:
     rows: list[tuple[str, str]] = []
     for sample in samples:
-        image_markdown = f"![{_markdown_escape_cell(sample.filename)}]({_relpath(sample.image_path, start=output_dir)})"
+        image_src = _escape_html_attr(_relpath(sample.image_path, start=output_dir))
+        image_alt = _escape_html_attr(sample.filename)
+        image_markdown = f'<img src="{image_src}" alt="{image_alt}">'
         targets_cell = _format_targets(sample.targets)
         rows.append((image_markdown, targets_cell))
 

@@ -1,22 +1,27 @@
 # openrouter/google/gemini-2.5-flash
 
-| Filename | Answer | Correct? |
-| --- | --- | --- |
-| [0_texas.jpg](../images/0_texas.jpg) | Texas | ✅ |
-| [10_australia.jpeg](../images/10_australia.jpeg) | Australia | ✅ |
-| [11_southamerica.png](../images/11_southamerica.png) | South America | ✅ |
-| [12_argentina.png](../images/12_argentina.png) | Argentina | ✅ |
-| [13_ohio.png](../images/13_ohio.png) | Italy | ❌ |
-| [14_michigan.png](../images/14_michigan.png) | North America | ❌ |
-| [15_indiana.png](../images/15_indiana.png) | Italy | ❌ |
-| [16_kentucky.png](../images/16_kentucky.png) | Africa | ❌ |
-| [17_southcarolina.png](../images/17_southcarolina.png) | Texas | ❌ |
-| [1_america_usa_unitedstates.jpg](../images/1_america_usa_unitedstates.jpg) | United States | ✅ |
-| [2_africa.jpg](../images/2_africa.jpg) | Africa | ✅ |
-| [3_ireland.jpg](../images/3_ireland.jpg) | Ireland | ✅ |
-| [4_florida.png](../images/4_florida.png) | Florida | ✅ |
-| [5_california.png](../images/5_california.png) | California | ✅ |
-| [6_italy.jpg](../images/6_italy.jpg) | Italy | ✅ |
-| [7_america_usa_unitedstates.jpg](../images/7_america_usa_unitedstates.jpg) | USA | ✅ |
-| [8_louisiana.jpg](../images/8_louisiana.jpg) | Texas | ❌ |
-| [9_mexico.jpg](../images/9_mexico.jpg) | Mexico | ✅ |
+<table>
+  <thead>
+    <tr><th>Filename</th><th>Answer</th><th>Correct?</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><a href="../images/0_texas.jpg">0_texas.jpg</a></td><td>Texas</td><td>✅</td></tr>
+    <tr><td><a href="../images/10_australia.jpeg">10_australia.jpeg</a></td><td>Australia</td><td>✅</td></tr>
+    <tr><td><a href="../images/11_southamerica.png">11_southamerica.png</a></td><td>South America</td><td>✅</td></tr>
+    <tr><td><a href="../images/12_argentina.png">12_argentina.png</a></td><td>Argentina</td><td>✅</td></tr>
+    <tr><td><a href="../images/13_ohio.png">13_ohio.png</a></td><td>Italy</td><td>❌</td></tr>
+    <tr><td><a href="../images/14_michigan.png">14_michigan.png</a></td><td>North America</td><td>❌</td></tr>
+    <tr><td><a href="../images/15_indiana.png">15_indiana.png</a></td><td>Italy</td><td>❌</td></tr>
+    <tr><td><a href="../images/16_kentucky.png">16_kentucky.png</a></td><td>Africa</td><td>❌</td></tr>
+    <tr><td><a href="../images/17_southcarolina.png">17_southcarolina.png</a></td><td>Texas</td><td>❌</td></tr>
+    <tr><td><a href="../images/1_america_usa_unitedstates.jpg">1_america_usa_unitedstates.jpg</a></td><td>United States</td><td>✅</td></tr>
+    <tr><td><a href="../images/2_africa.jpg">2_africa.jpg</a></td><td>Africa</td><td>✅</td></tr>
+    <tr><td><a href="../images/3_ireland.jpg">3_ireland.jpg</a></td><td>Ireland</td><td>✅</td></tr>
+    <tr><td><a href="../images/4_florida.png">4_florida.png</a></td><td>Florida</td><td>✅</td></tr>
+    <tr><td><a href="../images/5_california.png">5_california.png</a></td><td>California</td><td>✅</td></tr>
+    <tr><td><a href="../images/6_italy.jpg">6_italy.jpg</a></td><td>Italy</td><td>✅</td></tr>
+    <tr><td><a href="../images/7_america_usa_unitedstates.jpg">7_america_usa_unitedstates.jpg</a></td><td>USA</td><td>✅</td></tr>
+    <tr><td><a href="../images/8_louisiana.jpg">8_louisiana.jpg</a></td><td>Texas</td><td>❌</td></tr>
+    <tr><td><a href="../images/9_mexico.jpg">9_mexico.jpg</a></td><td>Mexico</td><td>✅</td></tr>
+  </tbody>
+</table>
